@@ -11,9 +11,9 @@ Vue.use(VueRouter)
 
 var router = new VueRouter({
   routes: routes,
-  base: process.env.BASE_URL,
+  //base: process.env.BASE_URL,
   //base: '/three-cats-laravel/public/',
-  //base: BASE_URL,
+  base: BASE_URL,  
   mode: 'history',
   linkExactActiveClass: 'active',
   scrollBehavior: function(to, from, savedPosition) {
