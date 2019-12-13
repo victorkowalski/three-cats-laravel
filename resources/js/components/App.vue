@@ -1,11 +1,10 @@
 <template>
   <div id="app">
     <!--img alt="Vue logo" src="./assets/logo.png"-->
-    <!--nav>
+    <nav>
       <router-link to="/">Home</router-link>
-      <router-link to="/login">Login</router-link>
-      <router-link to="/about">About</router-link>
-    </nav-->
+      <router-link to="/img-uploader">img-uploader</router-link>
+    </nav>
     <nav-bar />
     <router-view />
   </div>

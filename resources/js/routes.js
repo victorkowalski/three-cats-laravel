@@ -1,5 +1,7 @@
 import Home from './views/Home.vue';
 import SearchResults from './views/SearchResults.vue'
+import ImgUploader from './test/ImgUploader.vue'
+
 
 //import Home from './components/Home.vue'
 
@@ -15,6 +17,13 @@ const routes = [
     component: SearchResults,
     props: true,
   },
+  {
+    path: '/img-uploader',
+    name: 'upload',
+    component: ImgUploader,
+    props: true,
+  },
+
 ]
 
 export default routes
