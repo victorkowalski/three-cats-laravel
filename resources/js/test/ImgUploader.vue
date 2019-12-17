@@ -12,6 +12,7 @@
 
 <script>
 import axios from 'axios'
+import { BASE_URL, Settings } from '../variables.js'
 export default {
   name: "imgUploader",
   /*
@@ -42,7 +43,7 @@ export default {
           Make the request to the POST /single-file URL
         */
       axios
-        .post("/single-file", formData, {
+        .post(BASE_URL+"/api/products", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
