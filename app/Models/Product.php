@@ -11,4 +11,9 @@ class Product extends Model
         'unique_name',
         'price'
     ];
+
+    public function images()
+    {
+        return $this->hasMany('App\Models\ProductProperties');
+    }
 }

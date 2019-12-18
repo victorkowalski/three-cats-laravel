@@ -10,4 +10,9 @@ class ProductProperties extends Model
         'product_id',
         'image'
     ];
+/*
+    public function gallery()
+    {
+        return $this->belongsTo('App\Gallery');
+    }*/
 }
