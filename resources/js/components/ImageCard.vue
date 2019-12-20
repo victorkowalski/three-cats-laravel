@@ -5,8 +5,8 @@
       <p class="image-title" :class="{skeleton: loading}">{{ title }}</p>
       <p class="image-owner" :class="{skeleton: loading}">{{ byline }}</p>
       <section class="image-date-view-wrapper">
-        <p class="image-date" :class="{skeleton: loading}">{{ timestamp }}</p>
-        <p class="image-views" :class="{skeleton: loading}">Views: {{ viewCount }}</p>
+        <!--p class="image-date" :class="{skeleton: loading}">{{ timestamp }}</p-->
+        <!--p class="image-views" :class="{skeleton: loading}">Views: {{ viewCount }}</p-->
       </section>
     </div>
   </li>

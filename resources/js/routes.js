@@ -1,6 +1,6 @@
 import Home from './views/Home.vue';
 import SearchResults from './views/SearchResults.vue'
-import ImgUploader from './test/ImgUploader.vue'
+import ImgUploader from './views/ImgUploader.vue'
 
 
 //import Home from './components/Home.vue'

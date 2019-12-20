@@ -23,7 +23,8 @@ export default {
     ImageCard
   },
   props: {
-    tag: String
+    //tag: String
+    tag: ''
   },
   created() {
     this.search();
@@ -44,7 +45,7 @@ export default {
   data() {
     return {
       loading: false,
-      tag: "",
+      //tag: "",
       images: []
     };
   },
@@ -62,7 +63,7 @@ export default {
         page: 1,
         per_page: 30
       }).then(response => {
-        this.images = response.data.photos.photo;
+        //this.images = response.data.photos.photo;
       });
     }
   }
@@ -94,7 +95,7 @@ export default {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-}
+}/*
 .navbar {
   display: flex;
   align-items: center;
@@ -140,5 +141,5 @@ export default {
 .btn--go {
   padding: 0.5rem 2rem;
   margin-left: 1rem;
-}
+}*/
 </style>
