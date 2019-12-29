@@ -15,7 +15,8 @@
 <script>
 //import config from "../config";
 //import axios from "axios";
-import flickr from "../flickr.js";
+//import flickr from "../flickr.js";
+import api from '../api';
 import ImageCard from "../components/ImageCard";
 export default {
   name: "searchResults",
@@ -57,7 +58,54 @@ export default {
       }
     },
     fetchImages() {
-      return flickr("photos.search", {
+            /* Making API call to authenticate a user */
+      
+      /* Making API call */
+      api
+        .request('get', '/images'/*, { username, password }*/)
+        .then(response => {
+          //this.toggleLoading()
+
+          var data = response.data
+          /* Checking if error object was returned from the server */
+          if (data.error) {
+            var errorName = data.error.name
+            if (errorName) {
+              this.response = errorName === 'error'
+                  ? 'no images. Please try again.'
+                  : errorName
+            } else {
+              this.response = data.error
+            }
+
+            return
+          }
+
+          /* Setting user in the state and caching record to the localStorage */
+          if (data.user) {
+               this.images = response.data.photos.photo;
+
+            /*var token = 'Bearer ' + data.token
+
+            this.$store.commit('SET_USER', data.user)
+            this.$store.commit('SET_TOKEN', token)
+
+            if (window.localStorage) {
+              window.localStorage.setItem('user', JSON.stringify(data.user))
+              window.localStorage.setItem('token', token)
+            }*/
+         
+            //this.$router.push(data.redirect ? data.redirect : '/')
+          }
+        })
+        .catch(error => {
+          //this.$store.commit('TOGGLE_LOADING')
+          console.log(error)
+
+          this.response = 'Server appears to be offline'
+          //this.toggleLoading()
+        })
+      /*return flickr("photos.search", {
         tags: this.tag,
         extras: "url_n, owner_name, description, date_taken, views",
         page: 1,
@@ -65,6 +113,7 @@ export default {
       }).then(response => {
         //this.images = response.data.photos.photo;
       });
+      */
     }
   }
 };
