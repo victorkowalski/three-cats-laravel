@@ -31,21 +31,38 @@ class ProductsController extends Controller
             foreach ($request->file('files') as $file) {
                 $newImgName = time() . '.' . $file->extension();
                 $file->move(public_path() . '/uploads/img/', $newImgName);
-                
+
                 ProductProperties::create(['product_id' => $product->id, 'image' => $newImgName]);
             }
 
             DB::commit();
             return response()->json(['status' => 'success']);
 
-        } catch (Exception $exception) {  
+        } catch (Exception $exception) {
             DB::rollback();
             return response()->json(['status' => 'error', 'message' => $exception->getMessage()], 400);
         }
     }
 
-    public function index()
+    public function search($q)
     {
-        //return view('home');
+        $query = Product::query();
+
+        if ($this == $that) {
+            $query = $query->where('this', 'that');
+        }
+
+        if ($this == $another_thing) {
+            $query = $query->where('this', 'another_thing');
+        }
+
+        if ($this == $yet_another_thing) {
+            $query = $query->orderBy('this');
+        }
+
+        $results = $query->get();
+
+        $products = Product::where('name', 'like', "%{$q}%")->get();
+        return response()->json($products);
     }
 }

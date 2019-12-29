@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <hero-section
       backgroundImage="vvv.jpg"
       title="Welcome to Instaflickr"
@@ -12,9 +13,13 @@
 <script>
 import HeroSection from '../components/HeroSection';
 import RecentPhotos from '../components/RecentPhotos';
+//test
+import myimg from '../test/TestVar';
+
 export default {
   name: 'home',
   components: { 
+    //myimg,
     HeroSection,
     RecentPhotos
   }

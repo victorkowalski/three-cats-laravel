@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Route::group(['prefix' => 'api'], function () {
     //Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/products', 'ProductsController@index');
+    Route::get('/products-search/{q}', 'ProductsController@search');
     Route::post('/products', 'ProductsController@create');
 //});
 

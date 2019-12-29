@@ -1,9 +1,10 @@
 <template>
   <div class="wrapper">
     <h1>Results for: "{{tag}}"</h1>
-
+<!--div v-for="image in images" :key="image.id" :image="image" >{{image.id}}</div-->
     <ul v-if="!loading" class="image-card-grid">
       <image-card v-for="image in cleanImages" :key="image.id" :image="image" />
+      <!--div v-for="image in images" :key="image.id" :image="image" /-->
     </ul>
 
     <ul v-else class="image-card-grid">
@@ -24,8 +25,8 @@ export default {
     ImageCard
   },
   props: {
-    //tag: String
-    tag: ''
+    tag: String
+    //tag: ''
   },
   created() {
     this.search();
@@ -52,17 +53,17 @@ export default {
   },
   methods: {
     search() {
-      if (!this.isTagEmpty) {
+      //if (!this.isTagEmpty) {
         this.loading = true;
         this.fetchImages();
-      }
+      //}
     },
     fetchImages() {
             /* Making API call to authenticate a user */
       
       /* Making API call */
       api
-        .request('get', '/images'/*, { username, password }*/)
+        .request('get', '/api/products'/*, { username, password }*/)
         .then(response => {
           //this.toggleLoading()
 
@@ -82,8 +83,12 @@ export default {
           }
 
           /* Setting user in the state and caching record to the localStorage */
-          if (data.user) {
-               this.images = response.data.photos.photo;
+          if (data) {
+               this.images = data;
+this.loading = false;
+
+               console.log(data);
+               console.log(loading);
 
             /*var token = 'Bearer ' + data.token
 
