@@ -18,6 +18,11 @@ return [
         'passwords' => 'users',
     ],
 
+/*
+'defaults' => [
+    'guard' => 'api',
+    'passwords' => 'users',
+],*/
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -34,6 +39,12 @@ return [
     | Supported: "session", "token"
     |
     */
+    /*
+    'guards' => [
+        'api' => [
+            'driver' => 'custom-token',
+        ],
+    ],*/
 
     'guards' => [
         'web' => [
@@ -45,6 +56,11 @@ return [
             'driver' => 'token',
             'provider' => 'users',
             'hash' => false,
+        ],
+
+        'email' => [
+            'driver' => 'email',
+            'provider' => 'users',
         ],
     ],
 
