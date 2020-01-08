@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Token;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -39,7 +41,6 @@ class User extends Authenticatable
 
     public function getAccessToken()
     {
-        //$user->createToken('MyApp')->accessToken;
         $validAccessToken = $this->getValidAccessToken();
 
         return $validAccessToken ? $validAccessToken : $this->createNewOrUpdateAccessToken();
@@ -48,26 +49,25 @@ class User extends Authenticatable
 
     protected function getValidAccessToken()
     {
-        return Token::find()
-            ->where(['user_id' => $this->userId])
-            ->andWhere(['>', 'expired_at', time()])
-            ->one();
+        $token = Token::where('user_id', $this->id)
+        ->where('expired_at', '>', time())
+        ->first();
+
+        return $token;
     }
 
     protected function createNewOrUpdateAccessToken()
     {
-        $token = Token::find()
-            ->where(['user_id' => $this->userId])
-            ->one();
+        $token = Token::where('user_id', $this->id)->first();
 
-        return $token ? updateAccessToken($token) : createNewAccessToken();
+        return $token ? $this->updateAccessToken($token) : $this->createNewAccessToken();
     }
 
     protected function createNewAccessToken()
     {
         $token = new Token();
-        $token->user_id = $this->userId;
-        $token->generateToken(getRandomTime());
+        $token->user_id = $this->id;
+        $token->generateToken($this->getRandomTime());
         return $token->save() ? $token : null;
     }
 
@@ -78,7 +78,7 @@ class User extends Authenticatable
     }
 
     private function getRandomTime()
-    {
-        return time() + 3600 * 24;
+    {        
+        return Carbon::now()->addHours(24);
     }
 }
