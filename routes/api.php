@@ -21,6 +21,8 @@ Route::middleware('cors')->group(function () {
 
     Route::group(['prefix' => 'users'], function () {
         Route::post('/register', 'Api\RegisterController@register');
+        Route::post('/authenticate', 'Api\LoginController@login');
+        
     });
 });
 

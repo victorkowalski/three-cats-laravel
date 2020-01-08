@@ -36,4 +36,49 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAccessToken()
+    {
+        //$user->createToken('MyApp')->accessToken;
+        $validAccessToken = $this->getValidAccessToken();
+
+        return $validAccessToken ? $validAccessToken : $this->createNewOrUpdateAccessToken();
+
+    }
+
+    protected function getValidAccessToken()
+    {
+        return Token::find()
+            ->where(['user_id' => $this->userId])
+            ->andWhere(['>', 'expired_at', time()])
+            ->one();
+    }
+
+    protected function createNewOrUpdateAccessToken()
+    {
+        $token = Token::find()
+            ->where(['user_id' => $this->userId])
+            ->one();
+
+        return $token ? updateAccessToken($token) : createNewAccessToken();
+    }
+
+    protected function createNewAccessToken()
+    {
+        $token = new Token();
+        $token->user_id = $this->userId;
+        $token->generateToken(getRandomTime());
+        return $token->save() ? $token : null;
+    }
+
+    protected function updateAccessToken($token)
+    {
+        $token->generateToken(getRandomTime());
+        return $token->save() ? $token : null;
+    }
+
+    private function getRandomTime()
+    {
+        return time() + 3600 * 24;
+    }
 }
