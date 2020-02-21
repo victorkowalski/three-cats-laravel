@@ -16,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-         'App\Model' => 'App\Policies\ModelPolicy',
+         //'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -24,15 +24,28 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    /*
     public function boot()
     {
-        $this->registerPolicies();
+        //$this->registerPolicies();
 
         Auth::viaRequest('email', function ($request) {
-
+            
             return User::where('email', $request->email)->first();
         });
+    }*/
 
+    public function boot()
+    {
+        //$this->registerPolicies();
+
+        Auth::viaRequest('email', function ($request) {
+            $token = $request->bearerToken();
+            dd($token);
+            return User::where('email', $request->email)->first();
+        });
+    }
+}
         //
         /*Auth::viaRequest('custom-token', function ($request) {
 
@@ -66,8 +79,7 @@ class AuthServiceProvider extends ServiceProvider
         
             return null;*/
         //});
-    }
-}
+
 
 //boot
 /*
